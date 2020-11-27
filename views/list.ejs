@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head')%>
+    <title>List</title>
+</head>
+<body>
+    <%- include('partials/header')%>
+    <div class="mt-4">
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Video ID</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                <% ds.forEach(function(item){ %>
+                <tr>
+                    <td><%- item.name%></td>
+                    <td><%- item.description%></td>
+                    <td>@<%- item.videoid%></td>
+                   
+                    <td>
+                        <a href="/edit/<%- item._id%>">Edit</a> ||
+                        <a href="" data-toggle="modal" data-id="<%- item._id%>" data-target="#delete-videoid">Delete</a>
+                    </td>
+                  </tr>
+                <% });%>
+             
+            </tbody>
+        </table>
+    </div>
+    <!-- confirm delete video(modal)-->
+    <div id="delete-videoid" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Xoá Video ?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn muốn xoá video này ?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btn-delete-video" class="btn btn-primary">Xoá Video</button>
+              <button type="button"  class="btn btn-danger" data-dismiss="modal">Huỷ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!--delete hidden form -->
+    <form name="delete-form-video" method="POST"></form>
+    <script>
+        var takeid;
+        var deleteFormVideo = document.forms['delete-form-video'];
+        var btnDeleteVideo = document.getElementById('btn-delete-video');
+        
+        $('#delete-videoid').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            //console.log(id)
+            takeid = id;
+            
+        });
+
+        
+       
+        btnDeleteVideo.onclick=function(){
+            deleteFormVideo.action= takeid;
+            deleteFormVideo.submit();
+        }
+    </script>
+</body>
+</html>

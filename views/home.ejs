@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head')%>
+    <title>Home</title>
+</head>
+<body>
+    <%- include('partials/header')%>
+    <div class="mt-4">
+        <div class="row">
+            <% ds.forEach(function(item){ %>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card" style="margin-bottom: 20px;" >
+                        <a href="/detail/<%- item.slug%>"><img class="card-img-top" src="<%- item.image%>" alt=""></a>
+                        <div class="card-body">
+                        <a href="/detail/<%- item.slug%>"><h5 class="card-title"><%- item.name%></h5></a>
+                        <a href="/detail/<%- item.slug%>"><p class="card-text"><%- item.description%></p></a> 
+                        </div>
+                      </div>
+                </div>
+            <% });%>
+           
+        </div>
+    </div>
+</body>
+</html>
